@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query"; // Importa o hook useQuery da biblioteca React Query para gerenciar requisições de dados
 import { Post } from "./types/Post"; // Importa o tipo Post para garantir que os dados estejam tipados corretamente
 import axios from "axios";
+import { getPosts } from "./utils/api";
 
 // Definição do componente Home
 export default function Home() {
@@ -10,10 +11,7 @@ export default function Home() {
   // Executa uma query para buscar os posts usando React Query e com fetch 
   const query = useQuery({
     queryKey: ['posts'], // 'queryKey' identifica essa query, útil para cache e refetch
-    queryFn: async (): Promise<Post[]> => { // Define a função que busca os dados, retornando uma Promise de um array de Post
-      const results = await fetch("https://jsonplaceholder.typicode.com/posts"); // Faz a requisição para buscar os posts
-      return results.json(); // Converte o corpo da resposta para JSON (dados de postagens)
-    }
+    queryFn: getPosts // 'getPosts' identifica a "Api" que no caso esta ema util/api.ts  
   });
 
   const query2 = useQuery({
